@@ -1,10 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ActionButton } from "../components/ActionButton";
 
+// State：各コンポーネントが持つ状態。Stateが変更されると再レンダリングされる
+// []の中に第一引数⇒動的に変わる変数（代入する文字列）、第二引数⇒Stateを更新していく関数。setから始めよう
+//    useState()の中には表示させたいものを入れる
 export const Todo = () => {
     const [todoText, setTodoText] = useState('');
+    // この場合最初は空文字を表示
     const [incompleteTodo, setIncompleteTodo] = useState([])
-    const [completeTodo,setCompleteTodo]=useState([])
+    const [completeTodo, setCompleteTodo] = useState([])
     const onChangeTodoText = (event) => setTodoText(event.target.value);
 
     const onClickAdd = () => {
@@ -42,46 +46,46 @@ export const Todo = () => {
 
     return (
         <>
+            <body className="text-center">
+                <div>
+                    <h1>TODOリスト</h1>
+                    <input type="text" placeholder="TODOを入力" className="text-xl" value={todoText} onChange={onChangeTodoText} />
+                    <ActionButton className="bg-gradient-to-br from-gray-300 to-gray-500 rounded-md m-1 p-1 " action={onClickAdd} text="追加" />
+                </div>
+                <div className="text-orange-600 font-bold">未完了のTODO</div>
+                <ul>
+                    {incompleteTodo.map((todo, index) => {
+                        return (
+                            <li>
+                                <div key={todo} className="m-2">
+                                    {todo}
+                                    <ActionButton className="bg-slate-200 m-1 p-1" action={() => { onClickComplete(index) }} text="完了" />
 
-            <div>
-                <h1>TODOリスト</h1>
-                <input type="text" placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText} />
-                <button className="bg-gradient-to-br from-gray-300 to-gray-500 rounded-md m-1 p-1 " onClick={onClickAdd}>追加</button>
-            </div>
-            <div className="text-orange-600 font-bold">未完了のTODO</div>
-            <ul>
-                {incompleteTodo.map((todo, index) => {
-                    return (
-                        <li>
-                            <div key={todo}>
-                                {todo}
-                                <button className="bg-slate-200 m-1 p-1" onClick={() => { onClickComplete(index) }}>完了</button>
+                                    <ActionButton className="bg-slate-200 m-1 p-1" action={() => { onClickDelete(index) }} text="削除" />
+                                </div>
+                            </li>
 
-                                <button className="bg-slate-200 m-1 p-1" onClick={() => { onClickDelete(index) }}>削除</button>
-                            </div>
-                        </li>
-
-                    )
-                })}
+                        )
+                    })}
 
 
-            </ul>
-            <div className="text-blue-500 font-bold">完了済のTODO</div>
-            <ul>
-                {completeTodo.map((todo,index) => {
-                return (
-                    <li >
-                    <div key={todo}>
-                            {todo}
-                            <button className="bg-slate-200 m-1 p-1" onClick={()=>{onClickBack(index)}}>戻す</button>
-                    </div>
-                </li>
-                )
-            })}
-                
-            </ul>
-            <div></div>
+                </ul>
+                <div className="text-blue-500 font-bold">完了済のTODO</div>
+                <ul>
+                    {completeTodo.map((todo, index) => {
+                        return (
+                            <li >
+                                <div key={todo} className="m-2 justify-start">
+                                    {todo}
+                                    <ActionButton className="bg-slate-200 m-1 p-1" action={() => { onClickBack(index) }} text="戻す" />
+                                </div>
+                            </li>
+                        )
+                    })}
 
+                </ul>
+                <div></div>
+            </body>
         </>
     )
 }

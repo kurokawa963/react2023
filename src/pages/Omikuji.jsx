@@ -14,9 +14,12 @@ export const Omikuji = () => {
 
     return (
         <>
-            <p>おみくじの画面</p>
+            <body className="text-center">
+                 <p>おみくじの画面</p>
             <ActionButton text="おみくじをひく" action={getOmikuji} />
             <p>{omikujiResult}</p>
+            </body>
+           
         </>
     );
 };

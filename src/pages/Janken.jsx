@@ -57,6 +57,7 @@ export const Janken = () => {
     // 結果と履歴の入った配列ができあがる
     return (
         <>
+            <body className="text-center">
             <p>じゃんけんの画面</p>
             {/* `() => 関数名()` の形にする必要がある */}
             <ActionButton  text="グー" action={() => getJanken("グー")} />
@@ -87,7 +88,8 @@ export const Janken = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+                </table>
+            </body>
         </>
     );
 };
